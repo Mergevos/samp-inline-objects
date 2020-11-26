@@ -2,61 +2,74 @@
 
 [![sampctl](https://img.shields.io/badge/sampctl-samp--async--objects-2f2f2f.svg?style=for-the-badge)](https://github.com/Mergevos/samp-async-objects)
 
-<!--
-Short description of your library, why it's useful, some examples, pictures or
-videos. Link to your forum release thread too.
-
-Remember: You can use "forumfmt" to convert this readme to forum BBCode!
-
-What the sections below should be used for:
-
-`## Installation`: Leave this section un-edited unless you have some specific
-additional installation procedure.
-
-`## Testing`: Whether your library is tested with a simple `main()` and `print`,
-unit-tested, or demonstrated via prompting the player to connect, you should
-include some basic information for users to try out your code in some way.
-
-And finally, maintaining your version number`:
-
-* Follow [Semantic Versioning](https://semver.org/)
-* When you release a new version, update `VERSION` and `git tag` it
-* Versioning is important for sampctl to use the version control features
-
-Happy Pawning!
--->
+Inline object editing.
 
 ## Installation
 
 Simply install to your project:
 
 ```bash
-sampctl package install Mergevos/samp-async-objects
+sampctl package install Mergevos/samp-inline-objects
 ```
 
 Include in your code and begin using the library:
 
 ```pawn
-#include <samp-async-objects>
+#include <inline-objects>
 ```
 
 ## Usage
 
-<!--
-Write your code documentation or examples here. If your library is documented in
-the source code, direct users there. If not, list your API and describe it well
-in this section. If your library is passive and has no API, simply omit this
-section.
--->
+There's only one function to use, pretty simple. 
+
+```c
+EditObjectInline(playerid, objectid, Func: func<iiiiiiiiii>);
+```
+
+Where's: 
+
+```
+playerid - Player who is editing an object.
+objectid - The object which is edited.
+func - Callback/Inline called after.
+
+Returns value of EditObject. 1 for succes, 0 for fail.
+```
+
+## Example
+```c
+
+YCMD:test(playerid, params[], help)
+{ 
+    if(help) {
+        return 0;
+    }
+    SelectObject(playerid);
+
+    return 1;
+}
+
+public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+{
+    inline Test(pid, playerobject, objid, response, Float:fXx, Float:fYy, Float:fZz, Float:fRotX, Float:fRotY, Float:fRotZ )
+    {
+        #pragma unused fRotZ, fRotY, fRotX, fZz, fYy, fXx, objid, playerobject, pid
+        if(response == EDIT_RESPONSE_FINAL) {
+            print("NOINDOINDIOW");
+        }
+        else if(response == EDIT_RESPONSE_CANCEL)  {
+            print("PINOINDIO");
+        }
+        print("Test");
+    }
+    EditObjectInline(playerid, objectid, using inline Test);
+    return 1;
+}
+```
 
 ## Testing
 
-<!--
-Depending on whether your package is tested via in-game "demo tests" or
-y_testing unit-tests, you should indicate to readers what to expect below here.
--->
-
-To test, simply run the package:
+To test, simply run the package and then connect to the server:
 
 ```bash
 sampctl package run
