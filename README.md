@@ -1,6 +1,6 @@
-# samp-async-objects
+# samp-inline-objects
 
-[![sampctl](https://img.shields.io/badge/sampctl-samp--async--objects-2f2f2f.svg?style=for-the-badge)](https://github.com/Mergevos/samp-async-objects)
+[![Mergevos](https://img.shields.io/badge/Mergevos-samp--inline--objects-2f2f2f.svg?style=for-the-badge)](https://github.com/Mergevos/samp-inline-objects)
 
 Inline object editing.
 
